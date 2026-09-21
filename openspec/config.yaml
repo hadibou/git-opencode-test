@@ -1,0 +1,83 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, React, Node.js
+#     We use conventional commits
+#     Domain: e-commerce platform
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
+
+
+# context: |
+  # Project: openspec-test-project
+  # Minimal test project for experimenting with OpenSpec, OPSX workflows,
+  # Git worktrees, and OpenCode + DeepSeek integration.
+  # The project produces simple Markdown files.
+
+# rules:
+  # specs:
+    # - "format: markdown"
+    # - "style: minimal"
+    # - "allow_empty_sections: true"
+  # design:
+    # - "level: minimal"
+    # - "include_rationale: false"
+  # tasks:
+    # - "allow file creation, editing, and deletion"
+    # - "default_directory: output"
+    # - "file_extension: .md"
+
+# operations:
+  # apply:
+    # guidance:
+      # - "Keep test summaries concise"
+      
+      # Global context injected into all OpenSpec operations
+      
+
+context: |
+  This is a test project to validate multi-agent execution and Git Worktree automation.
+  The project produces and modifies ONLY Markdown (.md) files in the `docs/` directory.
+  All generated content must strictly follow standard Markdown syntax with clear H1/H2 headers.
+
+# Rules injected when generating specific artifacts
+rules:
+  proposal:
+    - Keep proposals concise and explicitly list the target `.md` files to be created or modified.
+  specs:
+    - Include clear acceptance criteria for Markdown header hierarchy and file cross-references.
+  tasks:
+    - Ensure every task maps directly to creating or editing a specific `.md` file.
+    - End every task with a validation step using `./scripts/test-md.sh`.
+
+# Operational guidance for the `apply` workflow step
+operations:
+  apply:
+    guidance:
+      - Run `./scripts/test-md.sh` before marking any task as complete in tasks.md.
+      - If validation fails, revert edits to the file and retry fixing the Markdown structure.
+
